@@ -9,6 +9,7 @@ export async function getEmployeesAction(params: {
   limit?: number;
   sortBy?: string;
   sortOrder?: "asc" | "desc";
+  search?: string;
 }): Promise<GetEmployeesResponse | { error: string }> {
   const cookieStore = await cookies();
   const token = cookieStore.get("session_token")?.value;
@@ -18,10 +19,7 @@ export async function getEmployeesAction(params: {
   }
 
   try {
-    console.log("getEmployeesAction params:", params);
-    console.log("getEmployeesAction token:", token);
-    const result = await getEmployeesService(params, token);
-    console.log("getEmployeesAction result:", result);
+    const result = await getEmployeesService(params);
     return result;
   } catch (err) {
     console.error("getEmployeesAction error:", err);
