@@ -140,7 +140,7 @@ export default function LoginPage() {
         </form>
       </div>
 
-      {/* <div className="hidden md:flex w-1/2 lg:w-[55%] bg-indigo-600 relative overflow-hidden items-center justify-center">
+      <div className="hidden md:flex w-1/2 lg:w-[55%] bg-indigo-600 relative overflow-hidden items-center justify-center">
         <div className="absolute top-[-10%] right-[-10%] h-[500px] w-[500px] rounded-full bg-indigo-500/30 blur-3xl"></div>
         <div className="absolute bottom-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-indigo-400/20 blur-3xl"></div>
 
@@ -168,7 +168,7 @@ export default function LoginPage() {
         </div>
 
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-soft-light"></div>
-      </div> */}
+      </div>
     </div>
   );
 }
