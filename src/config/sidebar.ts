@@ -25,30 +25,30 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     icon: Building2,
     children: [
       { title: "Employees", icon: Users, path: "/employees" },
-      { title: "Roles", icon: Shield, path: "/roles" },
-      { title: "Department", icon: Layers, path: "/department" },
-      { title: "Function", icon: Network, path: "/function" },
-      { title: "Employee Category", icon: Tags, path: "/employee-category" },
+      // { title: "Roles", icon: Shield, path: "/roles" },
+      // { title: "Department", icon: Layers, path: "/department" },
+      // { title: "Function", icon: Network, path: "/function" },
+      // { title: "Employee Category", icon: Tags, path: "/employee-category" },
     ],
   },
-  {
-    title: "Leave Management",
-    icon: Calendar,
-    path: "/leave",
-  },
-  {
-    title: "Attendance",
-    icon: Clock,
-    path: "/attendance",
-  },
-  {
-    title: "Payroll",
-    icon: Wallet,
-    path: "/payroll",
-  },
-  {
-    title: "Profile",
-    icon: User,
-    path: "/profile",
-  },
+  // {
+  //   title: "Leave Management",
+  //   icon: Calendar,
+  //   path: "/leave",
+  // },
+  // {
+  //   title: "Attendance",
+  //   icon: Clock,
+  //   path: "/attendance",
+  // },
+  // {
+  //   title: "Payroll",
+  //   icon: Wallet,
+  //   path: "/payroll",
+  // },
+  // {
+  //   title: "Profile",
+  //   icon: User,
+  //   path: "/profile",
+  // },
 ];
