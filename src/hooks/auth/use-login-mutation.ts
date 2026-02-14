@@ -24,6 +24,7 @@ export function useLoginMutation(options?: UseLoginMutationOptions) {
       if (data.success && data.data) {
         if (typeof window !== "undefined") {
           window.localStorage.setItem("access_token", data.data.accessToken);
+          window.localStorage.setItem("user_id", String(data.data.user.id));
         }
         await createSession(data.data.accessToken);
         router.push("/");

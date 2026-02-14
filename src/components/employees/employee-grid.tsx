@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { EmployeeCard } from "./employee-card";
 import type { Employee } from "@/types/employee";
 
@@ -75,9 +76,15 @@ export function EmployeeGrid({
   }
 
   return (
-    <div className="grid min-h-0 grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4 [align-items:start]">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
       {employees.map((emp, index) => (
-        <EmployeeCard key={emp.id ?? index} {...mapEmployeeToCard(emp, index)} />
+        <Link
+          key={emp.id ?? index}
+          href={`/employees/${emp.id}`}
+          className="focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-2xl"
+        >
+          <EmployeeCard {...mapEmployeeToCard(emp, index)} />
+        </Link>
       ))}
     </div>
   );

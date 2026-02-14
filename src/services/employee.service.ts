@@ -4,6 +4,8 @@ import type {
   GetEmployeesParams,
   GetEmployeesResponse,
   GetEmployeesApiResponse,
+  GetEmployeeApiResponse,
+  CreateEmployeePayload,
 } from "@/types/employee";
 
 export class EmployeeService extends BaseApiService {
@@ -25,10 +27,44 @@ export class EmployeeService extends BaseApiService {
     return { data, total, page: p, limit: l };
   }
 
-  /** Get single employee by id*/
+  /** Create a new employee */
+  async createEmployee(payload: CreateEmployeePayload): Promise<Employee> {
+    const body = await this.post<{ success: boolean; data?: Employee; message?: string }>("", {
+      firstName: payload.firstName,
+      lastName: payload.lastName,
+      userId: payload.userId,
+      departmentId: payload.departmentId,
+      address: payload.address,
+      photoUrl: payload.photoUrl ?? null,
+      gender: payload.gender ?? 1,
+      dob: payload.dob ? new Date(payload.dob) : null,
+      maritalStatus: payload.maritalStatus ?? 1,
+      idPhotoUrl: payload.idPhotoUrl ?? null,
+      personalPhone: payload.personalPhone ?? null,
+      workPhone: payload.workPhone ?? null,
+      personalEmail: payload.personalEmail ?? null,
+      workEmail: payload.workEmail ?? null,
+      status: payload.status ?? 1,
+    });
+    if (!body || (typeof body === "object" && "success" in body && !(body as { success: boolean }).success)) {
+      const msg = body && typeof body === "object" && "message" in body
+        ? String((body as { message: unknown }).message)
+        : "Failed to create employee";
+      throw new Error(msg);
+    }
+    const data = body && typeof body === "object" && "data" in body ? (body as { data: Employee }).data : null;
+    if (!data) throw new Error("No employee data returned");
+    return data;
+  }
+
+  /** Get single employee by id */
   async getEmployee(id: number): Promise<Employee | null> {
     try {
-      return await this.get<Employee>(`/${id}`);
+      const body = await this.get<GetEmployeeApiResponse | Employee>(`/${id}`);
+      if (body && typeof body === "object" && "success" in body && "data" in body) {
+        return (body as GetEmployeeApiResponse).success ? (body as GetEmployeeApiResponse).data : null;
+      }
+      return body as Employee;
     } catch {
       return null;
     }

@@ -5,10 +5,12 @@ import { PageActions } from "@/components/common/page-actions";
 import { SearchInput } from "@/components/common/search-input";
 import { EmployeeFilters } from "@/components/employees/employee-filters";
 import { EmployeeGrid } from "@/components/employees/employee-grid";
+import { CreateEmployeeForm } from "@/components/employees/create-employee-form";
 import { Header } from "@/components/layout/Header";
 import { Pagination } from "@/components/common/pagination";
 import { Button } from "@/components/ui/button";
-import { CloudDownload, Plus } from "lucide-react";
+import { Dialog } from "@/components/ui/dialog";
+import { Plus } from "lucide-react";
 import { useEmployees } from "@/hooks/use-employees";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { useIsXlScreen } from "@/hooks/use-breakpoint";
@@ -20,6 +22,7 @@ const SEARCH_DEBOUNCE_MS = 400;
 export default function EmployeesPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [createOpen, setCreateOpen] = useState(false);
   const isXl = useIsXlScreen();
 
   const itemsPerPage = isXl ? ITEMS_PER_PAGE_XL : ITEMS_PER_PAGE_LG;
@@ -66,17 +69,25 @@ export default function EmployeesPage() {
           actions={
             <div className="flex w-full flex-col-reverse gap-2 sm:w-auto sm:flex-row sm:flex-wrap">
               <Button
-                variant="outline"
                 size="sm"
-                className="w-full border-gray-200 bg-gray-100 text-gray-700 hover:bg-gray-200 hover:text-gray-900 sm:w-auto sm:shrink-0"
+                className="w-full sm:w-auto sm:shrink-0"
+                onClick={() => setCreateOpen(true)}
               >
-                <CloudDownload className="mr-2 h-4 w-4 shrink-0" />
-                <span className="truncate">Import Employees</span>
-              </Button>
-              <Button size="sm" className="w-full bg-blue-500 hover:bg-blue-600 sm:w-auto sm:shrink-0">
                 <Plus className="mr-2 h-4 w-4 shrink-0" />
                 <span className="truncate">Add New Employee</span>
               </Button>
+              <Dialog
+                open={createOpen}
+                onOpenChange={setCreateOpen}
+                title="Add new employee"
+                size="xl"
+                bodyClassName="max-h-[70vh] overflow-y-auto"
+              >
+                <CreateEmployeeForm
+                  onSuccess={() => setCreateOpen(false)}
+                  onCancel={() => setCreateOpen(false)}
+                />
+              </Dialog>
             </div>
           }
         />

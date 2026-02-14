@@ -60,10 +60,36 @@ export interface GetEmployeesApiResponse {
   data: GetEmployeesData;
 }
 
+/** API response for GET /api/employees/:id */
+export interface GetEmployeeApiResponse {
+  success: boolean;
+  message?: string;
+  data: Employee;
+}
+
 /** Normalized shape for UI (after unwrapping) */
 export interface GetEmployeesResponse {
   data: Employee[];
   total: number;
   page: number;
   limit: number;
+}
+
+/** Payload for POST /api/employees (create employee) */
+export interface CreateEmployeePayload {
+  firstName: string;
+  lastName: string;
+  userId: number;
+  departmentId: number;
+  address: string;
+  photoUrl?: string | null;
+  gender?: number;
+  dob?: string | null;
+  maritalStatus?: number;
+  idPhotoUrl?: string | null;
+  personalPhone?: string | null;
+  workPhone?: string | null;
+  personalEmail?: string | null;
+  workEmail?: string | null;
+  status?: number;
 }
