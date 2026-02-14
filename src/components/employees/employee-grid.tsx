@@ -75,7 +75,7 @@ export function EmployeeGrid({
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid min-h-0 grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4 [align-items:start]">
       {employees.map((emp, index) => (
         <EmployeeCard key={emp.id ?? index} {...mapEmployeeToCard(emp, index)} />
       ))}

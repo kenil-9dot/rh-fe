@@ -11,19 +11,24 @@ import { Button } from "@/components/ui/button";
 import { CloudDownload, Plus } from "lucide-react";
 import { useEmployees } from "@/hooks/use-employees";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
+import { useIsXlScreen } from "@/hooks/use-breakpoint";
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE_LG = 18; // lg and below
+const ITEMS_PER_PAGE_XL = 20; // xl and above
 const SEARCH_DEBOUNCE_MS = 400;
 
 export default function EmployeesPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
+  const isXl = useIsXlScreen();
+
+  const itemsPerPage = isXl ? ITEMS_PER_PAGE_XL : ITEMS_PER_PAGE_LG;
 
   const debouncedSearch = useDebouncedValue(search, SEARCH_DEBOUNCE_MS);
 
   const { data, isLoading, error } = useEmployees({
     page: currentPage,
-    limit: ITEMS_PER_PAGE,
+    limit: itemsPerPage,
     sortBy: "createdAt",
     sortOrder: "desc",
     search: debouncedSearch.trim() || undefined,
@@ -36,7 +41,8 @@ export default function EmployeesPage() {
 
   const employees = data?.data ?? [];
   const total = data?.total ?? 0;
-  const totalPages = Math.max(1, Math.ceil(total / ITEMS_PER_PAGE));
+  const limitFromApi = data?.limit ?? itemsPerPage;
+  const totalPages = Math.max(1, Math.ceil(total / limitFromApi));
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
